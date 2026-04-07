@@ -119,6 +119,10 @@ const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferred
 const loadDeferredImagesKeepZoomLevelLabel = document.getElementById("loadDeferredImagesKeepZoomLevelLabel");
 const loadDeferredImagesDispatchScrollEventLabel = document.getElementById("loadDeferredImagesDispatchScrollEventLabel");
 const loadDeferredImagesBeforeFramesLabel = document.getElementById("loadDeferredImagesBeforeFramesLabel");
+const scrollThroughPageBeforeSaveLabel = document.getElementById("scrollThroughPageBeforeSaveLabel");
+const scrollThroughPageStepLabel = document.getElementById("scrollThroughPageStepLabel");
+const scrollThroughPageDelayLabel = document.getElementById("scrollThroughPageDelayLabel");
+const scrollThroughPageMaxHeightLabel = document.getElementById("scrollThroughPageMaxHeightLabel");
 const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
@@ -285,6 +289,10 @@ const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferred
 const loadDeferredImagesKeepZoomLevelInput = document.getElementById("loadDeferredImagesKeepZoomLevelInput");
 const loadDeferredImagesDispatchScrollEventInput = document.getElementById("loadDeferredImagesDispatchScrollEventInput");
 const loadDeferredImagesBeforeFramesInput = document.getElementById("loadDeferredImagesBeforeFramesInput");
+const scrollThroughPageBeforeSaveInput = document.getElementById("scrollThroughPageBeforeSaveInput");
+const scrollThroughPageStepInput = document.getElementById("scrollThroughPageStepInput");
+const scrollThroughPageDelayInput = document.getElementById("scrollThroughPageDelayInput");
+const scrollThroughPageMaxHeightInput = document.getElementById("scrollThroughPageMaxHeightInput");
 const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
@@ -745,6 +753,10 @@ loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("option
 loadDeferredImagesKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesKeepZoomLevel");
 loadDeferredImagesDispatchScrollEventLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesDispatchScrollEvent");
 loadDeferredImagesBeforeFramesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesBeforeFrames");
+scrollThroughPageBeforeSaveLabel.textContent = browser.i18n.getMessage("optionScrollThroughPageBeforeSave");
+scrollThroughPageStepLabel.textContent = browser.i18n.getMessage("optionScrollThroughPageStep");
+scrollThroughPageDelayLabel.textContent = browser.i18n.getMessage("optionScrollThroughPageDelay");
+scrollThroughPageMaxHeightLabel.textContent = browser.i18n.getMessage("optionScrollThroughPageMaxHeight");
 addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
@@ -1106,6 +1118,13 @@ async function refresh(profileName) {
 	loadDeferredImagesDispatchScrollEventInput.disabled = !profileOptions.loadDeferredImages;
 	loadDeferredImagesBeforeFramesInput.checked = profileOptions.loadDeferredImagesBeforeFrames;
 	loadDeferredImagesBeforeFramesInput.disabled = !profileOptions.loadDeferredImages;
+		scrollThroughPageBeforeSaveInput.checked = profileOptions.scrollThroughPageBeforeSave;
+		scrollThroughPageStepInput.value = profileOptions.scrollThroughPageStep;
+		scrollThroughPageDelayInput.value = profileOptions.scrollThroughPageDelay;
+		scrollThroughPageMaxHeightInput.value = profileOptions.scrollThroughPageMaxHeight;
+		scrollThroughPageStepInput.disabled = !profileOptions.scrollThroughPageBeforeSave;
+		scrollThroughPageDelayInput.disabled = !profileOptions.scrollThroughPageBeforeSave;
+		scrollThroughPageMaxHeightInput.disabled = !profileOptions.scrollThroughPageBeforeSave;
 	contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 	filenameTemplateInput.value = profileOptions.filenameTemplate;
 	filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
@@ -1277,6 +1296,10 @@ async function update() {
 			loadDeferredImagesKeepZoomLevel: loadDeferredImagesKeepZoomLevelInput.checked,
 			loadDeferredImagesDispatchScrollEvent: loadDeferredImagesDispatchScrollEventInput.checked,
 			loadDeferredImagesBeforeFrames: loadDeferredImagesBeforeFramesInput.checked,
+				scrollThroughPageBeforeSave: scrollThroughPageBeforeSaveInput.checked,
+				scrollThroughPageStep: Math.max(scrollThroughPageStepInput.value, 100),
+				scrollThroughPageDelay: Math.max(scrollThroughPageDelayInput.value, 0),
+				scrollThroughPageMaxHeight: Math.max(scrollThroughPageMaxHeightInput.value, 1000),
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			filenameTemplate: filenameTemplateInput.value,
 			filenameMaxLength: filenameMaxLengthInput.value,

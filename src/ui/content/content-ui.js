@@ -40,13 +40,14 @@ const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
-let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE;
+let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE, LOG_PANEL_SCROLL_THROUGH_PAGE_MESSAGE;
 try {
 	LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
 	LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
 	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
 	LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
 	LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
+	LOG_PANEL_SCROLL_THROUGH_PAGE_MESSAGE = browser.i18n.getMessage("logPanelScrollThroughPage");
 	// eslint-disable-next-line no-unused-vars
 } catch (error) {
 	// ignored
@@ -73,7 +74,9 @@ export {
 	onStartStage,
 	onEndStage,
 	onPageLoading,
-	onLoadPage
+	onLoadPage,
+	onScrollingPage,
+	onScrolledPage
 };
 
 function promptMessage(message, defaultValue) {
@@ -155,6 +158,14 @@ function onEndStage(step, options) {
 function onPageLoading() { }
 
 function onLoadPage() { }
+
+function onScrollingPage(options) {
+	updateLog("scroll-through-page", LOG_PANEL_SCROLL_THROUGH_PAGE_MESSAGE, "…", options);
+}
+
+function onScrolledPage(options) {
+	updateLog("scroll-through-page", LOG_PANEL_SCROLL_THROUGH_PAGE_MESSAGE, "✓", options);
+}
 
 function getSelectedLinks() {
 	let selectionFound;

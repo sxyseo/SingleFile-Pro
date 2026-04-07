@@ -411,6 +411,26 @@
 		"message": "加载延迟框架",
 		"description": "Options page label: 'load deferred frames'"
 	},
+"optionScrollThroughPageBeforeSave": {
+		"message": "保存前滚动加载页面",
+		"description": "保存前滚动加载页面"
+	},
+	"optionScrollThroughPageStep": {
+		"message": "滚动步长（像素）",
+		"description": "滚动步长（像素）"
+	},
+	"optionScrollThroughPageDelay": {
+		"message": "滚动延迟（毫秒）",
+		"description": "滚动延迟（毫秒）"
+	},
+	"optionScrollThroughPageMaxHeight": {
+		"message": "最大滚动高度（像素）",
+		"description": "最大滚动高度（像素）"
+	},
+	"logPanelScrollThroughPage": {
+		"message": "正在滚动加载页面",
+		"description": "正在滚动加载页面"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除用于备选分辨率的图片",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

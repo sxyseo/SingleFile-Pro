@@ -268,6 +268,9 @@ async function processPage(options) {
 		ui.onInsertEmbeddedImage(options);
 	}
 	if (!options.saveRawPage && !processor.cancelled) {
+		if (options.scrollThroughPageBeforeSave) {
+			await scrollThroughPage(options, processor);
+		}
 		let lazyLoadPromise;
 		if (options.loadDeferredImages) {
 			lazyLoadPromise = singlefile.processors.lazy.process(options);
@@ -366,5 +369,27 @@ async function processPage(options) {
 	if (options.delayAfterProcessing) {
 		await new Promise(resolve => setTimeout(resolve, options.delayAfterProcessing * 1000));
 	}
-	return page;
+		return page;
+}
+
+async function scrollThroughPage(options, processor) {
+	const scrollingElement = document.scrollingElement || document.documentElement;
+	const step = options.scrollThroughPageStep || 500;
+	const delay = options.scrollThroughPageDelay || 100;
+	const maxHeight = options.scrollThroughPageMaxHeight || 50000;
+	const originalScrollY = globalThis.scrollY;
+	let currentY = 0;
+	ui.onScrollingPage(options);
+	await new Promise(resolve => setTimeout(resolve, 200));
+	while (currentY < maxHeight && !processor.cancelled) {
+		const scrollHeight = scrollingElement.scrollHeight;
+		if (currentY >= scrollHeight) {
+			break;
+		}
+		globalThis.scrollTo(0, currentY);
+		await new Promise(resolve => setTimeout(resolve, delay));
+		currentY += step;
+	}
+	globalThis.scrollTo(0, originalScrollY);
+	ui.onScrolledPage(options);
 }
